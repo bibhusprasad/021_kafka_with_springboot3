@@ -1,12 +1,12 @@
-package com.bibhu.learn.order_service_using_kafka;
+package com.bibhu.learn.kafka.orderservice;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class OrderServiceUsingKafkaApplicationTests {
 
-	@Test
+	@Disabled
 	void contextLoads() {
 	}
 

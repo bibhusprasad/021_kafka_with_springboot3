@@ -1,4 +1,4 @@
-package com.bibhu.learn.order_service_using_kafka;
+package com.bibhu.learn.kafka.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
