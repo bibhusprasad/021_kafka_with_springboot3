@@ -21,6 +21,10 @@ public class OrderCreatedHandler {
     )
     public void listen(OrderCreated orderPayload) {
         log.info("OrderCreatedHandler received order payload: {}", orderPayload);
-        orderDispatchService.process(orderPayload);
+        try {
+            orderDispatchService.process(orderPayload);
+        } catch (Exception e) {
+            log.error("Processing failed", e);
+        }
     }
 }
