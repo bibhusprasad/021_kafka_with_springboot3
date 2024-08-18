@@ -38,7 +38,6 @@ import static org.hamcrest.Matchers.equalTo;
 @Slf4j
 @SpringBootTest(classes = {KafkaOrderServiceConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@ActiveProfiles("test")
 @EmbeddedKafka(controlledShutdown = true, partitions = 1)
 public class OrderDispatchIntegrationTest {
 
