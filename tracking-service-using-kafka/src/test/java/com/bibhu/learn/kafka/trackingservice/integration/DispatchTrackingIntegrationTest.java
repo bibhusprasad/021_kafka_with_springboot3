@@ -33,7 +33,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 @Slf4j
 @SpringBootTest(classes = {KafkaTrackingServiceConfiguration.class})
-@ActiveProfiles("test")
 @EmbeddedKafka(controlledShutdown = true)
 public class DispatchTrackingIntegrationTest {
 
