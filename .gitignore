@@ -24,3 +24,6 @@ hs_err_pid*
 replay_pid*
 
 .idea/
+/tracking-service-using-kafka/.mvn/wrapper/maven-wrapper.properties
+/tracking-service-using-kafka/mvnw.cmd
+/tracking-service-using-kafka/mvnw
