@@ -26,15 +26,15 @@ import java.util.Map;
 public class KafkaTrackingServiceConfiguration {
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, DispatchPreparing> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, DispatchPreparing> factory
+    public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Object> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
 
     @Bean
-    public ConsumerFactory<String, DispatchPreparing> consumerFactory() {
+    public ConsumerFactory<String, Object> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "group-id");
@@ -44,8 +44,8 @@ public class KafkaTrackingServiceConfiguration {
         props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class);
         props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class.getName());
 
-        props.put(JsonDeserializer.TYPE_MAPPINGS, "dispatchPreparing:com.bibhu.learn.kafka.trackingservice.message.DispatchPreparing");
-        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.bibhu.learn.kafka.trackingservice.message.DispatchPreparing");
+        //props.put(JsonDeserializer.TYPE_MAPPINGS, "dispatchPreparing:com.bibhu.learn.kafka.trackingservice.message.DispatchPreparing");
+        //props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.bibhu.learn.kafka.trackingservice.message.DispatchPreparing");
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.bibhu.learn.kafka.trackingservic");
 
         return new DefaultKafkaConsumerFactory<>(props);
