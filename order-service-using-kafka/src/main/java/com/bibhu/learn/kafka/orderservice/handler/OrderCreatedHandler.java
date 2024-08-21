@@ -1,5 +1,7 @@
 package com.bibhu.learn.kafka.orderservice.handler;
 
+import com.bibhu.learn.kafka.orderservice.exception.NotRetryableException;
+import com.bibhu.learn.kafka.orderservice.exception.RetryableException;
 import com.bibhu.learn.kafka.orderservice.message.OrderCreated;
 import com.bibhu.learn.kafka.orderservice.service.OrderDispatchService;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,8 @@ public class OrderCreatedHandler {
     @KafkaListener(
             id = "orderConsumerClient",
             topics = "order.created",
-            groupId = "dispatch.order.created.consumer2"
+            groupId = "dispatch.order.created.consumer2",
+            containerFactory = "kafkaListenerContainerFactory"
     )
     public void listen(
             @Header(KafkaHeaders.RECEIVED_PARTITION) Integer partition,
@@ -30,8 +33,12 @@ public class OrderCreatedHandler {
         log.info("OrderCreatedHandler received order - partition: {} - key: {} - payload: {}", partition, key, orderPayload);
         try {
             orderDispatchService.process(key, orderPayload);
+        } catch (RetryableException e) {
+            log.warn("Retryable exception: {}", e.getMessage());
+            throw e;
         } catch (Exception e) {
-            log.error("Processing failed", e);
+            log.error("NotRetryable exception: {}", e.getMessage());
+            throw new NotRetryableException(e);
         }
     }
 }
